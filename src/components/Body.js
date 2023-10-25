@@ -8,6 +8,8 @@ import Shimmer from "./Shimmer";
 const Body=()=>{
 
   const [ratedList, SetRatedList]=useState(resList.data) //change to resList.data
+const [filteredRestro, setFilteredRestro]=useState(resList.data)
+
   const [searchText,setSearchText]=useState("")
 
   useEffect(()=>{
@@ -37,12 +39,15 @@ const fetchData = async ()=>{
 
     <div className="search">
     <input type="text" className="text-box" value={searchText} 
+
     onChange={(e)=>{ setSearchText(e.target.value)}}/>
+    
     <button
     onClick={()=>{
       const searchList = ratedList.filter((res)=>res.name.toLowerCase().includes(searchText.toLowerCase()))
-      SetRatedList (searchList);
-      console.log("search")
+
+      setFilteredRestro (searchList);
+      
     }}>Search</button>
     </div>
 
@@ -62,7 +67,7 @@ const fetchData = async ()=>{
       </div>
       <div className="Restro-card" >
      {
-      ratedList.map((restaurant)=>{                  // changed resList.data to rstedList
+      filteredRestro.map((restaurant)=>{                  // changed resList.data to rstedList
         // console.log('restaurent',restaurant);
         return(<Restaurant key={restaurant.id} resData={restaurant}/>)})
      }
