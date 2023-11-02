@@ -1,6 +1,7 @@
 import  {useEffect, useState}  from "react";
 import { LOGO_URL } from "../utils/constants";
 import { Link } from "react-router-dom";
+import onlineStatus from "../utils/onlineStatus";
 
 const Header =()=>{
  console.log('header')
@@ -10,21 +11,25 @@ useEffect(()=>{
 console.log('useeffect')
 })
 
+const status=onlineStatus()
+
     return(
-      <div className="header">
+      <div className="flex justify-between bg-pink-100  shadow-lg  p-2 m-2 ">
   
     <div >
-    <img className="logo" src={LOGO_URL}/>
+    <img className="w-60" src={LOGO_URL}/>
     </div>
   
-    <div className="Navitems">
-    <ul>
-    <li><Link to="/">Home</Link></li>
-    <li>
+    <div className="flex items-center">
+    <ul className=" flex m-15 p-10">
+    <li className="px-4">Server status ={status?"On":"Off"}</li>
+    <li className="px-4"><Link to="/">Home</Link></li>
+    <li className="px-4">
     <Link to="/about">About</Link>
     </li>
-    <li><Link to="/contact">Contact</Link></li>
-    <li>Card</li>
+    <strong>
+    <li className="px-4"><Link to="/contact">Contact</Link></li></strong>
+    <li className="px-4">Card</li>
     <button className="login" 
     onClick={()=>{btnName===("Login")?setBtnName("Logout"):setBtnName("Login")}}
     >{btnName}</button>

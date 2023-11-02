@@ -2,6 +2,7 @@ import resList from "../utils/restrodata";
 import Restaurant from "./Restaurant";
 import { useState, useEffect } from "react";
 import Shimmer from "./Shimmer";
+import onlineStatus from "../utils/onlineStatus";
 
 
 
@@ -33,16 +34,21 @@ const fetchData = async ()=>{
     
   //  }
 
+  const status=onlineStatus()
+  if (status===false) {
+    return <h1>OOPS!</h1>
+  }
+
     return ratedList.length===0 ? <Shimmer/>:(  
       <div className="Body">
-<div className="filter">
+<div className="filter flex">
 
-    <div className="search">
-    <input type="text" className="text-box" value={searchText} 
+    <div className="search m-2 p-2">
+    <input type="text" className="border border-solid border-black" value={searchText} 
 
     onChange={(e)=>{ setSearchText(e.target.value)}}/>
     
-    <button
+    <button className="m-2 p-0.5 bg-pink-100  rounded-md "
     onClick={()=>{
       const searchList = ratedList.filter((res)=>res.name.toLowerCase().includes(searchText.toLowerCase()))
 
@@ -51,8 +57,8 @@ const fetchData = async ()=>{
     }}>Search</button>
     </div>
 
-      <div className="filter-btn">
-      <button className="filter" 
+      <div className="filter-btn m-2 p-2 ">
+      <button className="m-2 p-0.5 bg-pink-100  flex rounded-md" 
 
       onClick={()=>{
         const FilteredList=ratedList.filter((res)=>
@@ -65,7 +71,7 @@ const fetchData = async ()=>{
       }}>Top rated restro</button>
       </div>
       </div>
-      <div className="Restro-card" >
+      <div className=" flex flex-wrap" >
      {
       filteredRestro.map((restaurant)=>{                  // changed resList.data to rstedList
         // console.log('restaurent',restaurant);
